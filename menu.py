@@ -59,6 +59,20 @@ def total_price():
 
     print("Загальна ціна:", total)
 
+def count_dishes():
+    print(f"\n[INFO] У меню залишилось страв: {len(dishes)}")
+
+def delete_by_name():
+    name = input("Введіть назву для видалення: ").lower()
+    global dishes
+    dishes = [d for d in dishes if d['name'].lower() != name]
+    count_dishes()
+
+def delete_by_category():
+    cat = input("Яку категорію видалити?: ").lower()
+    global dishes
+    dishes = [d for d in dishes if d.get('category', '').lower() != cat]
+    count_dishes()
 
 while True:
 
@@ -68,6 +82,8 @@ while True:
     print("2 Редагувати")
     print("3 Видалити")
     print("4 Загальна ціна")
+    print("5 Видалити за назвою")
+    print("6 Видалити за категорією")
     print("0 Вихід")
 
     choice = input("Вибір: ")
@@ -80,5 +96,9 @@ while True:
         delete_dish()
     elif choice == "4":
         total_price()
+    elif choice == "5":
+        delete_by_name()
+    elif choice == "6":
+        delete_by_category()
     elif choice == "0":
         break
