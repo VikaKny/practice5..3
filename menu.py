@@ -98,3 +98,14 @@ def get_category_price(menu_list):
     res = sum(item['ціна'] for item in filtered)
     print(f"Сума для категорії '{cat}': {res} грн")
     print(f"Кількість страв у категорії: {len(filtered)}")
+
+def sort_by_price(menu_list):
+    print("\n1. Зростання 2. Спадання")
+    choice = input("Ваш вибір: ").strip()
+    rev = True if choice == "2" else False
+
+    sorted_m = sorted(menu_list, key=lambda x: x['ціна'], reverse=rev)
+
+    print("\nСписок страв після сортування:")
+    for i, item in enumerate(sorted_m, start=1):
+        print(f"{i}. {item['назва']} - {item['ціна']} грн - Категорія: {item.get('категорія','Без категорії')}")
