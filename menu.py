@@ -80,3 +80,9 @@ while True:
         total_price()
     elif choice == "0":
         break
+
+def get_total_stats(menu_list):
+    total_sum = sum(item['ціна'] for item in menu_list)
+    count = len(menu_list)
+    print(f"\nЗагальна ціна всіх страв: {total_sum} грн")
+    print(f"Кількість страв у меню: {count}")
