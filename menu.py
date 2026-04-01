@@ -1,23 +1,43 @@
-#menu
+# menu
 dishes = [
     {"name": "Борщ", "price": 80, "desc": "Український суп"},
     {"name": "Піца", "price": 150, "desc": "Сирна піца"},
     {"name": "Суші", "price": 200, "desc": "Роли з лососем"},
     {"name": "Салат", "price": 70, "desc": "Овочевий салат"},
     {"name": "Картопля по-селянськи", "price": 50, "desc": "Картопля з печі"}
-
 ]
 
 
 def show_dishes():
-    print("\nСписок страв:")
+    print("\n" + "=" * 40)
+    print("МЕНЮ РЕСТОРАНУ")
+    print("=" * 40)
+
+    if not dishes:
+        print("Немає страв")
+        return
+
     for i, d in enumerate(dishes):
-        print(f"{i}. {d['name']} - {d['price']} грн - {d['desc']}")
+        print(f"\n[{i}] {d['name']}")
+        print(f"Ціна: {d['price']} грн")
+        print(f"Опис: {d['desc']}")
+
+    print("\n" + "=" * 40)
 
 
 def add_dish():
     name = input("Назва: ")
-    price = float(input("Ціна: "))
+
+    while True:
+        try:
+            price = float(input("Ціна: "))
+            if price < 0:
+                print("Ціна не може бути від'ємною!")
+            else:
+                break
+        except ValueError:
+            print("Введи число!")
+
     desc = input("Опис: ")
 
     dishes.append({
@@ -26,13 +46,25 @@ def add_dish():
         "desc": desc
     })
 
+    print("Страву додано!")
+
 
 def edit_dish():
     index = int(input("Номер страви: "))
 
     if 0 <= index < len(dishes):
         name = input("Нова назва: ")
-        price = float(input("Нова ціна: "))
+
+        while True:
+            try:
+                price = float(input("Нова ціна: "))
+                if price < 0:
+                    print("Ціна не може бути від'ємною!")
+                else:
+                    break
+            except ValueError:
+                print("Введи число!")
+
         desc = input("Новий опис: ")
 
         dishes[index] = {
@@ -40,6 +72,8 @@ def edit_dish():
             "price": price,
             "desc": desc
         }
+
+        print("Страву оновлено!")
     else:
         print("Немає такої страви")
 
@@ -49,21 +83,18 @@ def delete_dish():
 
     if 0 <= index < len(dishes):
         dishes.pop(index)
+        print("Страву видалено!")
     else:
         print("Немає такої страви")
 
 
 def total_price():
-    total = 0
-    for d in dishes:
-        total += d["price"]
-
-    print("Загальна ціна:", total)
+    total = sum(d["price"] for d in dishes)
+    print(f"\n Загальна ціна всіх страв: {total} грн")
 
 
 while True:
-
-    show_dishes()   # ← СПОЧАТКУ список
+    show_dishes()
 
     print("\n1 Додати")
     print("2 Редагувати")
