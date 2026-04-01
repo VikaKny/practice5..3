@@ -86,3 +86,15 @@ def get_total_stats(menu_list):
     count = len(menu_list)
     print(f"\nЗагальна ціна всіх страв: {total_sum} грн")
     print(f"Кількість страв у меню: {count}")
+
+def get_category_price(menu_list):
+    cat = input("Введіть категорію (Напої, Сніданки тощо): ").strip()
+    filtered = [item for item in menu_list if item.get('категорія') == cat]
+
+    if not filtered:
+        print(f"Категорія '{cat}' не знайдена у меню.")
+        return
+
+    res = sum(item['ціна'] for item in filtered)
+    print(f"Сума для категорії '{cat}': {res} грн")
+    print(f"Кількість страв у категорії: {len(filtered)}")
